@@ -1,3 +1,0 @@
-validate admin
-Registration of user with seperate api and seperate table 
-login with jwt authorization or Oauth2 or Keycloak
