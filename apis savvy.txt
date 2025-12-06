@@ -1,0 +1,292 @@
+
+	Savvy Project Api endpoints
+Register Apis ::
+	a. http://localhost:8082/api/register/register
+
+request : 
+
+	{
+  "name": "Gowtham",
+  "email": "gowtham@gmail.com",
+  "password": "test123",
+  "phone": "9999999999",
+  "address": "Bangalore"
+}
+
+
+response::
+
+{
+    "id": 1,
+    "name": "Gowtham",
+    "email": "gowtham@gmail.com",
+    "phone": "9999999999",
+    "address": "Bangalore",
+    "role": "USER",
+    "status": "ACTIVE"
+}
+..........................................................................................
+
+Login Apis ::
+	a. http://localhost:8083/api/login
+
+request : 
+	{
+    "email" : "gowtham@gmail.com",
+    "password" : "test123"
+}
+
+
+response : 
+	{
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MSwic3ViIjoiZ293dGhhbUBnbWFpbC5jb20iLCJpYXQiOjE3NjI2Njk4ODIsImV4cCI6MTc2MjcwNTg4Mn0.i1AOCCXAXgoWHgZXl1AhKmqiYun5RWEjysJoEyDdUcE",
+    "role": "USER",
+    "message": "Login successful"
+}
+
+............................................................................................
+
+Admin apis
+
+post	http://localhost:8080/admins/add  (create)
+get	http://localhost:8080/admins/all    (get all)
+get	http://localhost:8080/admins/4      (get 4th id)
+
+request for post:
+
+	{
+    "username" : "Gowtham",
+    "email" : "gowtham@gmail.com",
+    "password" : "Gowtham@123"
+}
+
+Response :  {
+    "id": 0,
+    "username": "Fowtham",
+    "email": "gowtham@gmail.com",
+    "role": "ADMIN"
+}
+
+
+.......................................................................................
+
+cart apis
+
+post	http://localhost:8086/cart/add  
+
+request : 
+{
+  "productId": 10,
+  "quantity": 2
+}
+
+response :
+
+	{
+    "id": 5,
+    "userId": 1,
+    "productId": 10,
+    "quantity": 2
+}
+
+
+delete cart api
+
+delete    http://localhost:8086/cart/remove/2
+
+response :: Item removed successfully
+
+
+
+
+Get cart api
+
+get       http://localhost:8086/cart/mycart
+
+response :: [
+    {
+        "id": 5,
+        "userId": 1,
+        "productId": 10,
+        "quantity": 2
+    }
+]
+
+
+....................................................................................
+
+order apis
+
+post        http://localhost:8087/orders
+
+request  :: 
+
+	{
+  "userId": 1,
+  "items": [
+    {
+      "productId": 101,
+      "quantity": 2
+    },
+    {
+      "productId": 202,
+      "quantity": 1
+    }
+  ],
+  "payment": {
+    "paymentMethod": "ONLINE",
+    "paymentStatus": "PENDING",
+    "transactionId": "TXN12345"
+},
+
+  "shippingAddress": {
+    "street": "Bangalore",
+    "city": "Bangalore",
+    "state": "Karnataka",
+    "pincode": "560001"
+}
+
+}
+
+
+
+Response ::
+
+	{
+    "id": 2,
+    "userId": 1,
+    "status": "PLACED",
+    "totalAmount": 0.0,
+    "orderDate": "2025-11-09T13:57:11.4398549",
+    "items": [
+        {
+            "id": 3,
+            "productId": 101,
+            "quantity": 2,
+            "price": 0.0
+        },
+        {
+            "id": 4,
+            "productId": 202,
+            "quantity": 1,
+            "price": 0.0
+        }
+    ],
+    "payment": {
+        "paymentMethod": "ONLINE",
+        "amount": 0.0,
+        "transactionId": "TXN12345",
+        "paymentStatus": "SUCCESS"
+    },
+    "shippingAddress": {
+        "fullName": null,
+        "addressLine": null,
+        "city": "Bangalore",
+        "state": "Karnataka",
+        "postalCode": null,
+        "country": null,
+        "phoneNumber": null
+    }
+}
+
+
+get by user id ::
+
+get 	http://localhost:8087/orders/user/1
+
+
+
+get by order id
+
+get 	http://localhost:8087/orders/1
+
+
+
+update Status::
+
+put	http://localhost:8087/orders/1/status?status=SHIPPED
+
+
+request 	{
+  "orderId": 10,
+  "status": "SHIPPED",
+  "userId": 1,
+  "totalAmount": 1499.0
+}
+
+
+response:: 
+
+	{
+    "id": 1,
+    "userId": 1,
+    "status": "SHIPPED",
+    "totalAmount": 1299.47,
+    "orderDate": "2025-10-29T12:40:00.483549",
+    "items": [
+        {
+            "id": 1,
+            "productId": 101,
+            "quantity": 2,
+            "price": 499.99
+        },
+        {
+            "id": 2,
+            "productId": 102,
+            "quantity": 1,
+            "price": 299.49
+        }
+    ],
+    "payment": {
+        "paymentMethod": "CARD",
+        "amount": 1299.47,
+        "transactionId": "TXN12345678",
+        "paymentStatus": "SUCCESS"
+    },
+    "shippingAddress": {
+        "fullName": "Gowtham Uddy",
+        "addressLine": "123 MG Road",
+        "city": "Bangalore",
+        "state": "Karnataka",
+        "postalCode": "560001",
+        "country": "India",
+        "phoneNumber": "9876543210"
+    }
+}
+
+
+Cancel order
+
+delete	http://localhost:8087/orders/1
+
+Order with ID 1 cancelled successfully.
+
+
+
+......................................................................................
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
